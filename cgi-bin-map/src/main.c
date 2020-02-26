@@ -5,6 +5,7 @@
 
 #include "commands.c"
 #include "html.c"
+#include "parse_webrequest.c"
 
 /* Include html-server */
 /*#include "html.c"*/
