@@ -38,15 +38,3 @@ void print_html_page_contents(char* file_path) {
         }
         fclose(html_file);
 }
-
-
-void print_css_file_contents() {
-        FILE *css_file;
-        char current_char;
-        css_file = fopen("html_root/css/tailwind.min.css", "r");
-        while((current_char = (char) fgetc(css_file)) != EOF) {
-                printf("%c", current_char);
-        }
-        fclose(css_file);
-}
-
