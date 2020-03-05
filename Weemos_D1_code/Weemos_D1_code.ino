@@ -2,19 +2,17 @@
 
 //SSID of your network
 char ssid[] = "Wee-Fee"; //SSID of your Wi-Fi router
-char pass[] = "12345678"; //Password of your Wi-Fi router (12345678)
+char pass[] = "test3737"; //Password of your Wi-Fi router (12345678)
+byte pi[] = { 192, 168, 1, 102};
 
-char response;
-char string[900];
-int i = 0;
+char string[20];
 
-void setup()
-{
-  byte pi[] = { 192, 168, 15, 106};
+WiFiClient client;
+
+void setup() {
+  // put your setup code here, to run once:
   Serial.begin(115200);
-  delay(10);
-
-  WiFiClient client;
+  delay(1000);
 
   // Connect to Wi-Fi network
   Serial.println();
@@ -32,33 +30,53 @@ void setup()
   Serial.println("Wi-Fi connected successfully");
   pinMode(LED_BUILTIN, OUTPUT);
 
-
-  delay(1000);
-
-  Serial.println("Proberen om connectie te maken met de PI");
-
   if (client.connect(pi, 1337))
   {
-      Serial.println("EY, er is verbinding");
-      client.print("BOE");
-      while(client.available()!= 1)
-      {
-          if(client.available())
-          {
-           response = (char)client.read();
-           string[i] = response;
-           i ++;
-          }
-      }
-      Serial.print(string);
-    }
+    Serial.println("EY, er is verbinding");
+    client.write("BOE!!");
+  }
+  else
+  {
+    Serial.println("Ik kan geen verbinding maken met de server");
+  }
 }
 
-
-// the loop function runs over and over again forever
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);                       // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);                       // wait for a second
+  // put your main code here, to run repeatedly:
+  if (client.available())
+  {
+    if(readpi("START"))
+    {
+      Serial.println("Ik zal de robotstofzuiger starten");
+      client.write("Robotstofzuiger wordt gestart");
+    }
+    else if (readpi("STOP"))
+    {
+      Serial.println("Ik zal de robotstofzuiger stoppen");
+      client.write("Robotstofzuiger wordt gestopt");
+    }
+  }
+}
+
+int readpi(char* vergelijking)
+{
+  int i = 0;
+  char response;
+  char string[20];
+  
+  while (client.available())
+  {
+    response = client.read();
+    string[i] = response;
+    i++;
+  }
+  if (strcmp(string, vergelijking) == 0)
+  {
+    Serial.println(string);
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
 }
