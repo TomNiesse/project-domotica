@@ -7,23 +7,10 @@ byte server[] = { 172, 217, 17, 110 }; // Youtube's IP address
 
 EthernetClient client;
 
-bool status = 0;
-
-void toggle_led() {
-  if(status) {
-    status = 0;
-    return;
-  }
-  status = 1;
-  return;
-}
-
 void setup()
 {
   Ethernet.begin(mac);
   Serial.begin(9600);
-
-  pinMode(13, OUTPUT);
 
   delay(1000);
 
@@ -43,7 +30,6 @@ void loop()
   while (client.available()) {
     char c = client.read();
     Serial.print(c);
-    toggle_led();
   }
 
   if (!client.connected()) {
