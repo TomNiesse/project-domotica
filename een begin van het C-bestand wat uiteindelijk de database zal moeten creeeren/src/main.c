@@ -6,6 +6,7 @@
 #define MYSQL_HOST "localhost"
 #define MYSQL_USERNAME "root"
 #define MYSQL_PASSWORD "Heavy122!"
+#define MYSQL_DATABASE "domotica"
 
 void exec_query(MYSQL*con, char query[]);
 
@@ -59,7 +60,7 @@ int main(int argc, char **argv)
   }
 printf("Het  DB is aangemaakt\n");
 con = mysql_init(NULL);
-if (mysql_real_connect(con, MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, "domotica", 0, NULL, 0) == NULL)
+if (mysql_real_connect(con, MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_DATABASE, 0, NULL, 0) == NULL)
   {
       fprintf(stderr, "%s\n", mysql_error(con));
       mysql_close(con);
