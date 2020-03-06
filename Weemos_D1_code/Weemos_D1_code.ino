@@ -2,8 +2,8 @@
 
 //SSID of your network
 char ssid[] = "Wee-Fee"; //SSID of your Wi-Fi router
-char pass[] = "test3737"; //Password of your Wi-Fi router (12345678)
-byte pi[] = { 192, 168, 1, 102};
+char pass[] = "12345678"; //Password of your Wi-Fi router (12345678)
+byte pi[] = { 192, 168, 15, 100};
 
 char string[20];
 
@@ -45,7 +45,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   if (client.available())
   {
-    if(readpi("START"))
+    if (readpi("START"))
     {
       Serial.println("Ik zal de robotstofzuiger starten");
       client.write("Robotstofzuiger wordt gestart");
@@ -63,7 +63,7 @@ int readpi(char* vergelijking)
   int i = 0;
   char response;
   char string[20];
-  
+
   while (client.available())
   {
     response = client.read();
@@ -75,8 +75,5 @@ int readpi(char* vergelijking)
     Serial.println(string);
     return 1;
   }
-  else
-  {
-    return 0;
-  }
+  return 0;
 }
