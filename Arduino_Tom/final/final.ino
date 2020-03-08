@@ -28,8 +28,7 @@ void setup()
   Serial.begin(9600);
   /* Zorg ervoor dat we fanspin krijgen als we naar de pin schrijven */
   pinMode(FAN_PIN, OUTPUT);
-  /* Zorg ervoor dat we temperatuur enzo binnenkrijgen als we erom vragen */
-  pinMode(FAN_PIN, OUTPUT);
+  pinMode(ARDUINO_LED, OUTPUT);
   /* Praat een eerste keer met de server om de gewenste temperatuur op te halen */
   negotiate_data(read_temperature());
 }
@@ -41,8 +40,10 @@ void loop()
   Serial.print("Gewenste temperatuur:\t ");
   Serial.println(desired_temperature);
   if((int)read_temperature() <= desired_temperature) {
+    digitalWrite(ARDUINO_LED, LOW);
     digitalWrite(FAN_PIN, LOW);
   } else {
+    digitalWrite(ARDUINO_LED, HIGH);
     digitalWrite(FAN_PIN, HIGH);
   }
 
