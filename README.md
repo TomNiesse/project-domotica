@@ -7,7 +7,7 @@ _We hebben nog een verhaaltje nodig en een lijst aan sensoren en actuatoren_
 ## TODO
 
 - ~~POST-requests parsen door QUERY_STRING enzo uit te lezen en er een parser voor te schrijven~~ is klaar
-- ~~Arduino socket client maken~~ code kan gewoon gejat worden van groepsgenoten, dus imho klaar
+- ~~Arduino socket client maken~~ TWAAAAAAAAAAAAAAAN!!!! FIX JE SHIT!!!!!!!
 - ~~Sensoren werkend krijgen~~
 - ~~Actuatoren werkend krijgen~~
 - DB beheren met C
