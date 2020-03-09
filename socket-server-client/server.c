@@ -11,8 +11,8 @@
 int main() {
 	/* Define vars */
 	char alarmEnabled = 0;
-	time_t currentTime = 60;
-	time_t desiredTime = 1;
+	time_t currentTime = time(NULL);
+	time_t desiredTime = time(NULL) + 5;
 	int sockfd, newsockfd, port_number, message_size;	/* File descriptor, file descriptor, port number, size of bytes written to or from the socket */
 	socklen_t clilen;									/* Length of client address */
 	char buffer = 0;									/* Incoming chars go into this buffer */
@@ -71,7 +71,9 @@ int main() {
 		while(1)
 		{
 			/* Kijk of het al tijd is voor dat alarmpie */
+			currentTime = time(NULL);
 			if(currentTime >= desiredTime) alarmEnabled = 1;
+			else alarmEnabled = 0;
 
 			message_size = write(newsockfd, &alarmEnabled, 1);
 			if (message_size < 0) {
