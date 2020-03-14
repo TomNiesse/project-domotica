@@ -39,6 +39,7 @@ int main(int argc, char **argv)
 
   if(tolower(keuze_query) != 'j')
   {
+      printf("U gaat niet akkoord en bent gestopt.");
       exit(1);
   }
 
@@ -60,7 +61,7 @@ int main(int argc, char **argv)
       mysql_close(con);
       exit(1);
   }
-printf("Het  DB is aangemaakt\n");
+printf("Het DB is aangemaakt\n");
 con = mysql_init(NULL);
 if (mysql_real_connect(con, MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_DATABASE, 0, NULL, 0) == NULL)
   {
