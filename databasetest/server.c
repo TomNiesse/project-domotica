@@ -87,7 +87,7 @@ int main() {
 			exit(1);
 		} 
 
-		if (mysql_query(con, "SELECT DEVICE_ID FROM DEVICE")) 
+		if (mysql_query(con, "SELECT DEVICE_ID FROM DEVICE WHERE DEVICE_NAME = 'robotstofzuiger'")) 
 		{
 			fprintf(stderr, "%s\n", mysql_error(con));
 			mysql_close(con);
@@ -129,8 +129,6 @@ int main() {
 
 		   printf("%d\n", som); 
 		   */
-
-
 
 		if (uitlees == 1)
 		{
