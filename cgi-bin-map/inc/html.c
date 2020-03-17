@@ -9,10 +9,9 @@ void print_html_page_contents(char* file_path) {
 	fseek(html_file, 0, SEEK_END);
 	file_size = ftell(html_file);
 	fseek(html_file, 0, SEEK_SET);
-	/* Zolang het einde van het bestand nog niet is bereikt... */
+	/* Print elk karakter uit het html-bestand */
 	for(file_index = 0; file_index < file_size; file_index++) {
 		current_char = (char) fgetc(html_file);
-		/* ...moeten er karakters worden geprint */
 		/* Kijk of er een commando op de huidige positie staat */
 		if(current_char == '#') {
 			current_command[0] = '\0';
@@ -24,7 +23,7 @@ void print_html_page_contents(char* file_path) {
 				if(command_buffer_index < 50) {
 					strncat(current_command, &current_char, 1);
 				} else {
-					printf("<div style='margin: 8px; padding-left: 4px; background: red; color: white;'>Wat de neuk is dit? Dit commando is te lang. Ik kap ermee! >:(<br>Veel plezier met debuggen!</div>");
+					printf("<div style='margin: 8px; padding-left: 4px; background: red; color: white;'>Wat is dit? Dit commando is te lang. Ik kap ermee! >:(<br>Veel plezier met debuggen!</div>");
 					exit(1);
 				}
 				current_char = (char) fgetc(html_file);
