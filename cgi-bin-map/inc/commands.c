@@ -5,8 +5,16 @@ void command_test() {
 void print_css_file_contents() {
         FILE *css_file;
         char current_char;
+        size_t file_size;
+        int file_index;
         css_file = fopen("html_root/css/tailwind.min.css", "r");
-        while((current_char = (char) fgetc(css_file)) != EOF) {
+        /* Haal bestandsgrootte op */
+        fseek(css_file, 0, SEEK_END);
+        file_size = ftell(css_file);
+        fseek(css_file, 0, SEEK_SET);
+        /* Zolang het einde van het bestand nog niet is bereikt... */
+        for(file_index = 0; file_index < file_size; file_index++) {
+                current_char = (char) fgetc(css_file);
                 printf("%c", current_char);
         }
         fclose(css_file);
