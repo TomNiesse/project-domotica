@@ -2,37 +2,39 @@ void print_html_page_contents(char* file_path) {
         FILE *html_file;
         char current_char;
         char current_command[50];
-        int command_buffer_index;
+        int command_buffer_index, file_index;
+        size_t file_size;
         html_file = fopen(file_path, "r");
+        /* Haal bestandsgrootte op */
+        fseek(html_file, 0, SEEK_END);
+        file_size = ftell(html_file);
+        fseek(html_file, 0, SEEK_SET);
         /* Zolang het einde van het bestand nog niet is bereikt... */
-        while((current_char = (char) fgetc(html_file)) != EOF) {
+        for(file_index = 0; file_index < file_size; file_index++) {
+                current_char = (char) fgetc(html_file);
                 /* ...moeten er karakters worden geprint */
                 /* Kijk of er een commando op de huidige positie staat */
                 if(current_char == '#') {
-                        /* Een commando is mogelijk gevonden! Stop even met printen, en voer m uit */
+                        current_command[0] = '\0';
+                        command_buffer_index = 0;
                         current_char = (char) fgetc(html_file);
-                        if(current_char == '>') {
-                                /* Clear any previous commands */
-                                current_command[0] = '\0';
-                                command_buffer_index = 0;
-                                current_char = (char) fgetc(html_file);
-                                /* Get the string of the current command */
-                                while(current_char != ')') {
-                                        if(command_buffer_index < 50) {
-                                                strncat(current_command, &current_char, 1);
-                                        } else {
-                                                printf("<div style='margin: 8px; padding-left: 4px; background: red; color: white;'>Wat de neuk is dit? Dit commando is te lang. Ik kap ermee! >:(<br>Veel plezier met debuggen!</div>");
-                                                exit(1);
-                                        }
-                                        current_char = (char) fgetc(html_file);
-                                        command_buffer_index++;
+                        file_index++;
+                        /* Get the string of the current command */
+                        while(current_char != ')') {
+                                if(command_buffer_index < 50) {
+                                        strncat(current_command, &current_char, 1);
+                                } else {
+                                        printf("<div style='margin: 8px; padding-left: 4px; background: red; color: white;'>Wat de neuk is dit? Dit commando is te lang. Ik kap ermee! >:(<br>Veel plezier met debuggen!</div>");
+                                        exit(1);
                                 }
-                                strncat(current_command, &current_char, 1);
                                 current_char = (char) fgetc(html_file);
-                                execute_command(current_command);
-                        } else {
-                                printf("#%c", current_char);
+                                file_index++;
+                                command_buffer_index++;
                         }
+                        strncat(current_command, &current_char, 1);
+                        current_char = (char) fgetc(html_file);
+                        file_index++;
+                        execute_command(current_command);
                 }
                 printf("%c", current_char);
         }
