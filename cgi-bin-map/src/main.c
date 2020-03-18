@@ -12,8 +12,9 @@
 #define MYSQL_PASSWORD   "domotica"
 #define MAX_QUERY_LENGTH 512
 
-#define DEVICE_ID_AIRCO 2     /* Dit moet nog worden veranderd in het eindproduct. Daar moet het id nummer 3 zijn, de laatste van de 4 apparaten */
-#include "devices/airco.c"    /* airco.c kan met de database praten om waarden op te halen en bij te werken */
+#define DEVICE_ID_AIRCO 2     			/* Dit moet nog worden veranderd in het eindproduct. Daar moet het id nummer 3 zijn, de laatste van de 4 apparaten */
+#define DEVICE_ID_ROBOTSTOFZUIGER 1
+#include "devices/airco.c"    			/* airco.c kan met de database praten om waarden op te halen en bij te werken */
 
 #include "commands.c"
 #include "parse_webrequest.c"

@@ -27,12 +27,15 @@ void execute_command(char* command) {
         } else if(strcmp(command, "print_css_file_contents()") == 0) {
                 print_css_file_contents();
                 return;
-	      } else if(strcmp(command, "airco_get_current_temp_value()") == 0) {
-		            /* Dit moet later nog worden opgehaald uit de database */
-		            printf("27");	
-	      } else if(strcmp(command, "airco_get_desired_temp_value()") == 0) {
-		            /* Ook dit moet later nog worden opgehaald uit database */
-		            printf("99");
+	} else if(strcmp(command, "airco_get_current_temp_value()") == 0) {
+		/* Dit moet later nog worden opgehaald uit de database */
+		printf("27");	
+	} else if(strcmp(command, "airco_get_desired_temp_value()") == 0) {
+		/* Ook dit moet later nog worden opgehaald uit database */
+		printf("99");
+        } else if(strcmp(command, "robotstofzuiger_get_current_value()") == 0) {
+		/* Dit is nog erg leeg....*/
+		printf("12");
         } else {
                 printf("<div style='background: red; color: white; padding-left: 4px; margin: 8px;'>Neef wtf! Commando \"%s\" bestaat niet.<br>Spontane typaids ontwikkeld?<br>Een grove denkfout?<br>Iets anders?<br>Wat zou het probleem toch kunnen zijn?</div>", command);
         }

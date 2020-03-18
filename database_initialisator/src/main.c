@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 		/* De database kan niet worden verwijderd, maar we moeten wel gewoon doorgaan */
 		printf("Database bestaat niet, dus er valt weinig te verwijderen. We gaan wel gewoon door.\n");
 	}
-	printf("HET DB is foetsie\n");
+	printf("De database is foetsie\n");
 	/* Maak de database aan */
 	if (mysql_query(con, "CREATE DATABASE domotica"))
 	{
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 		mysql_close(con);
 		exit(1);
 	}
-	printf("Het DB is aangemaakt\n");
+	printf("De database is aangemaakt\n");
 	con = mysql_init(NULL);
 	if (mysql_real_connect(con, MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_DATABASE, 0, NULL, 0) == NULL)
 	{
