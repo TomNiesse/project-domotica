@@ -107,10 +107,6 @@ int main() {
 	return 0;
 }
 
-/*
- * Haal de gewenste temperatuur-waarde uit database op
- * Returnt: De ingestelde temperatuur, of -1 bij een fout
- */
 int airco_get_desired_value() {
 	int desired_value;
 	char sql_query[MAX_QUERY_LENGTH] = {0};
