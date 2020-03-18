@@ -3,7 +3,7 @@ void print_html_page_contents(char* file_path) {
 	char current_char;
 	char current_command[50];
 	int command_buffer_index, file_index;
-	size_t file_size;
+	long int file_size;
 	html_file = fopen(file_path, "r");
 	/* Haal bestandsgrootte op */
 	fseek(html_file, 0, SEEK_END);

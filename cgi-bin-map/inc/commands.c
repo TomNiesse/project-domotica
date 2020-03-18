@@ -5,7 +5,7 @@ void command_test() {
 void print_css_file_contents() {
         FILE *css_file;
         char current_char;
-        size_t file_size;
+        long int file_size;
         int file_index;
         css_file = fopen("html_root/css/tailwind.min.css", "r");
         /* Haal bestandsgrootte op */

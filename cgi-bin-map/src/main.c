@@ -4,9 +4,21 @@
 #include <mariadb/mysql.h>
 #include <unistd.h>
 
+/* Definieer de sql-variabelen hier, zodat ze globaal bekend zijn.
+ * De gebruiker heeft minimale rechten, dus schade zou beperkt moeten blijven indien er een hancker in komt */
+#define MYSQL_HOST       "localhost"
+#define MYSQL_DATABASE   "domotica"
+#define MYSQL_USERNAME   "domotica"
+#define MYSQL_PASSWORD   "domotica"
+#define MAX_QUERY_LENGTH 512
+
+#define DEVICE_ID_AIRCO 2 /* Dit moet nog worden veranderd in het eindproduct. Daar moet het id nummer 3 zijn, de laatste van de 4 apparaten */
+
 #include "commands.c"
 #include "parse_webrequest.c"
 #include "html.c"
+
+#include "devices/airco.c"
 
 int main(int argc, char** argv, char** env) {
 	/*
