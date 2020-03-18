@@ -40,7 +40,7 @@ int airco_get_current_value() {
 
 /*
  * Zet een nieuwe gemeten waarde in de database
- * Returnt: 0 als alles is goedgegaan, 1 als er iets is foutgegaan
+ * Returnt: 0 als alles is goedgegaan, -1 als er iets is foutgegaan
  */
 int airco_set_current_value(int new_current_value) {
 	char sql_query[MAX_QUERY_LENGTH] = {0};
@@ -107,7 +107,7 @@ int airco_get_desired_value() {
 
 /*
  * Zet een nieuwe gemeten waarde in de database
- * Returnt: 0 als alles is goedgegaan, 1 als er iets is foutgegaan
+ * Returnt: 0 als alles is goedgegaan, -1 als er iets is foutgegaan
  */
 int airco_set_desired_value(int new_desired_value) {
 	char sql_query[MAX_QUERY_LENGTH] = {0};
