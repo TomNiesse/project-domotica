@@ -131,3 +131,24 @@ int airco_set_desired_value(int new_desired_value) {
 	mysql_close(sql_connection);
 	return 0;
 }
+
+/*
+ * Kijk in de params en values arrays of er een nieuwe gewenste temperatuur wordt meegegeven met een GET-/POST-request
+ * Returnt: 0 als het is gevonden en alles goed ging, -1 als het niet is gevonden en 1 als er iets fout ging
+ */
+int airco_parse_new_desired_value_get_input(char params[MAX_ARRAY_LENGTH][MAX_STRING_LENGTH], char values[MAX_ARRAY_LENGTH][MAX_STRING_LENGTH]) {
+	int array_index = 0;
+	int new_desired_value;
+	/* Kijk of er een nieuwe gewenste waarde voor le smart airco is meegegeven */
+	while(strlen(params[array_index])) {
+		if(strcmp(params[array_index], "airco_new_value") == 0) {
+			/* Er is een nieuwe waarde gevonden, zet deze in de database */
+			new_desired_value = atoi(values[array_index]);
+			if(airco_set_desired_value(new_desired_value) == -1) {
+				return 1;
+			}
+			return 0;
+		}
+	}
+	return -1;
+}
