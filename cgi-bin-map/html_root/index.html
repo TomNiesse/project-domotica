@@ -6,46 +6,56 @@
 			Dashboard
 		</title>
 		<style>
-			#>print_css_file_contents()
+			#print_css_file_contents()
 		</style>
 	</head>
-	<body class="h-full bg-gray-900 w-full flex flex-col min-h-screen">
-		
+	<body class="h-full bg-gray-900 w-full flex flex-col min-h-screen">		
 	  	<nav class="py-3 bg-blue-900 text-white">
 			<p class="px-4">Webdashboard mockup</p>
 		</nav>
-		<div class="devices p-4 flex flex-row">
-			<div class="device w-64 h-64 flex flex-col text-white">
-				<div class="device-title bg-blue-700 text-center">meme-apparaat</div>
-				<div class="bg-blue-600 flex flex-1 flex-col flex-grow text-center pt-8">
-					deze pagina is nog niet af<br>
-					commando, komt ie aan: #>command_test()<br>
+		<div class="devices p-4 flex flex-row flex-grow flex-1">
+			<form class="device h-64 flex flex-col text-white" action="" method="GET">
+				<div class="device-title bg-blue-700 text-center">Smart airconditioner™</div>
+				<div class="bg-blue-600 flex flex-1 flex-row flex-grow text-center pt-8">
+					<div class="flex flex-col bg-blue-900 -mt-8 border-r-4 border-blue-700">
+						<h4 class="text-white mx-4">Gewenste temperatuur</h4>
+						<input class="text-4xl pt-1 pl-2 text-black h-12 w-16 ml-16 rounded" name="desired_temp" value="#airco_get_desired_temp_value()" placeholder="Gewenste temperatuur" type="number">	
+						<button class="bg-blue-600 hover:bg-blue-700 text-white rounded mx-12 mt-2" type="submit">Instellen</button>
+					</div>	
+					<div class="flex flex-col bg-blue-900 -mt-8">
+						<h4 class="ml-4 mr-6 text-white">Huidige temperatuur</h4>
+						<p class="bg-white text-4xl h-12 w-16 ml-16 rounded text-black">#airco_get_current_temp_value()</p>
+						<a href="/main.cgi">
+							<button class="bg-blue-600 hover:bg-blue-700 text-white rounded ml-14 mt-2 px-2">Verversen</button>
+						</a>
+					</div>
 				</div>
-			</div>
+			</form>
 		</div>
+		<!--
 		<form method="POST" action="/main.cgi">
 			<input type="text" name="username" placeholder="username"> USERNAME?<br>
 			<button class="bg-blue-600 hover:bg-blue-700 text-white rounded" type="submit">TEST</button>
 		</form>
 		<div class="text-white command-test w-full bg-orange-700 p-4">
 			<h1 class="text-4xl">Commando tests</h1>
-			#>niet_bestaand_commando()
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-			#>command_test()<br>
-		</div>
-		<footer class="text-center bg-gray-900 text-white py-3">
+			#niet_bestaand_commando()
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+			#command_test()<br>
+		</div>-->
+		<footer class="text-center bg-blue-900 text-white py-3">
 			&copy;
-			<a class="text-blue-400 underline"  target="_blank"href="https://www.planetcustodian.com/indian-villagers-worshiping-newly-built-toilets-instead-of-using-them/7873/">Durasoft incorporated</a>
+			<a class="text-white hover:text-blue-400 hover:underline"  target="_blank"href="https://i.imgur.com/RBxCdNu.jpg">Slimme mensen inc.</a>
 		</footer>
-	</body>
+  </body>
 </html>
