@@ -27,6 +27,7 @@ short parse_webrequest(char* request, char params[MAX_ARRAY_LENGTH][MAX_STRING_L
 						if(request[tmp_index] == '=') {
 								/* string copy the param into the params array */
 								strncpy(&params[arrays_index][0], request, (size_t)tmp_index);
+								params_set = 1;
 								/* increase the string pointer, so C starts looking at a later point in memory */
 								request+=(int)tmp_index+1;
 								/* do not continue searching for the next '=' */
@@ -51,5 +52,5 @@ short parse_webrequest(char* request, char params[MAX_ARRAY_LENGTH][MAX_STRING_L
 		/* Now, copy the last value into place manually, the while loop has already ended here */
 		/* stringcopy the last value into place, telling C the string is long */
 		strncpy(&values[arrays_index-1][0], request, (size_t)MAX_STRING_LENGTH);
-		return arrays_index-1;
+		return params_set;
 }
