@@ -2,10 +2,17 @@
 
 //SSID of your network
 char ssid[] = "Wee-Fee"; //SSID of your Wi-Fi router
-char pass[] = "12345678"; //Password of your Wi-Fi router (12345678)
-byte pi[] = { 192, 168, 15, 100};
+char pass[] = "test3737"; //Password of your Wi-Fi router (12345678)
+byte pi[] = { 192, 168, 1, 100};
+
+bool last_start;
+bool last_stop;
 
 char string[20];
+char nano_response[10];
+float voltage;
+
+int i;
 
 WiFiClient client;
 
@@ -34,25 +41,45 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-   if (client.connect(pi, 1337))
-   {
-    //Serial.println("EY, er is verbinding");
-    client.write("Er is verbinding");
-    while (!client.available())
+  if (client.connect(pi, 1337))
+  {
+    if (Serial.available())
     {
-     ;
+      i = 0;
+      while (Serial.available())
+      {
+        nano_response[i] = Serial.read();
+        i++;
+      }
+      client.print(nano_response);
+    }
+    //Serial.println("EY, er is verbinding");
+    //client.write("Er is verbinding");
+    while(!client.available())
+    {
+      ;
     }
     while (client.available())
-    {  
+    {
       if (readpi("START"))
       {
-        Serial.println('r');
-        client.write("Robotstofzuiger wordt gestart");
+        if (!last_start)
+        {
+          Serial.println('r');
+        }
+        last_start = true;
+        last_stop = false;
+        //client.write("Robotstofzuiger wordt gestart");
       }
       else if (readpi("STOP"))
       {
-        Serial.println('p');
-        client.write("Robotstofzuiger wordt gestopt");
+        if (!last_stop)
+        {
+          Serial.println('p');
+        }
+        last_stop = true;
+        last_start = false;
+        //client.write("Robotstofzuiger wordt gestopt");
       }
     }
   }
@@ -74,7 +101,7 @@ int readpi(char* vergelijking)
   }
   if (strcmp(string, vergelijking) == 0)
   {
-    Serial.println(string);
+    //Serial.println(string);
     return 1;
   }
   return 0;
