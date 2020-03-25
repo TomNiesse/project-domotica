@@ -161,7 +161,7 @@ void setup() {
 
   count = 0;
 
-  Serial.println("[INFO] INIT");
+  //Serial.println("[INFO] INIT");
 }
 
 void loop() {
@@ -188,33 +188,33 @@ void loop() {
       } else if (command == 'r') {
         paused = false;
         init_run();
-        Serial.println("[MANUAL] Running...");
+        //Serial.println("[MANUAL] Running...");
       } else if (command == 'p') {
         paused = true;
         pause_run();
-        Serial.println("[MANUAL] Pausing...");
+        //Serial.println("[MANUAL] Pausing...");
       } else if (command == 'c') {
         int address = get_num();
         if (address >= 0) {
           int value = get_num();
           if (value >= 0) {
             set_cfg(address, (byte) value);
-            Serial.print("[CFG] ");
-            Serial.print(address);
-            Serial.print(" ");
-            Serial.println(get_cfg(address));
+            //Serial.print("[CFG] ");
+            //Serial.print(address);
+            //Serial.print(" ");
+            //Serial.println(get_cfg(address));
           }
         }
       } else if (command == 'g') {
         int address = get_num();
         if (address >= 0) {
-          Serial.print("[CFG] ");
-          Serial.print(address);
-          Serial.print(" ");
-          Serial.println(get_cfg(address));
+          //Serial.print("[CFG] ");
+          //Serial.print(address);
+          //Serial.print(" ");
+          //Serial.println(get_cfg(address));
         }
       } else {
-        Serial.println("[ERROR] Invalid command.");
+        //Serial.println("[ERROR] Invalid command.");
       }
     }
     if (!paused) {
@@ -244,12 +244,12 @@ void waitBlinking(int n, int frequency) {
   }
 }
 
-float  readBattery(int input) {
+float readBattery(int input) {
   int readInput;
   float voltage;
   readInput = analogRead(input);
   voltage = (((readInput * 4.9) / 1000) * voltageBatCharged ) / 5; //Resolution of analog input = 4.9mV per Voltage
-  Serial.print("Battery= ");
+  //Serial.print("Battery= ");
   Serial.println(voltage);
   return voltage;
 }
@@ -279,14 +279,14 @@ void timings() {
         autorun = true;
         paused = false;
         init_run();
-        Serial.println("[AUTO] Running...");
+        //Serial.println("[AUTO] Running...");
       }
     }
   } else if (autorun && time_day > stop_time) {
     autorun = false;
     paused = true;
     pause_run();
-    Serial.println("[AUTO] Pausing...");
+    //Serial.println("[AUTO] Pausing...");
   }
 }
 
@@ -300,29 +300,29 @@ void debug() {
       Stop(); //Initialize with motors stoped
       if (command == 'f') {
         forward();
-        Serial.println("[MANUAL] Forwards...");
+        //Serial.println("[MANUAL] Forwards...");
       } else if (command == 'b') {
         back();
-        Serial.println("[MANUAL] Backwards...");
+        //Serial.println("[MANUAL] Backwards...");
       } else if (command == 'l') {
         left();
-        Serial.println("[MANUAL] Left...");
+        //Serial.println("[MANUAL] Left...");
       } else if (command == 'r') {
         right();
-        Serial.println("[MANUAL] Right...");
+        //Serial.println("[MANUAL] Right...");
       } else if (command == 's') {
-        Serial.println("[MANUAL] Stopped moving.");
+        //Serial.println("[MANUAL] Stopped moving.");
       } else {
-        Serial.println("[ERROR] Invalid direction. Stopped moving.");
+        //Serial.println("[ERROR] Invalid direction. Stopped moving.");
       }
     } else if (command == 'f') {
       get_command();
       if (command == '0') {
         digitalWrite(FAN, LOW);
-        Serial.println("[MANUAL] Fan turned off.");
+        //Serial.println("[MANUAL] Fan turned off.");
       } else {
         digitalWrite(FAN, HIGH);
-        Serial.println("[MANUAL] Fan turned on.");
+        //Serial.println("[MANUAL] Fan turned on.");
       }
     } else if (command == 'c') {
       get_command();
@@ -335,16 +335,16 @@ void debug() {
         } else if (command == '3') {
           read_sonar(SONAR_3_TRIG, SONAR_3_ECHO);
         } else {
-          Serial.println("[ERROR] Invalid sonar id");
+          //Serial.println("[ERROR] Invalid sonar id");
         }
       } else {
-        Serial.println("[ERROR] Invalid sensor type");
+        //Serial.println("[ERROR] Invalid sensor type");
       }
     } else if (command == 'r') {
-      Serial.println("[MANUAL] Resetting...");
+      //Serial.println("[MANUAL] Resetting...");
       resetFunc();
     } else {
-      Serial.println("[ERROR] Invalid debug command");
+      //Serial.println("[ERROR] Invalid debug command");
     }
   }
   else if (!control) {
@@ -400,7 +400,7 @@ void iterate()
       backing = false;
       count = 0;
       forward();
-      Serial.println("[INFO] FORWARDS");
+      //Serial.println("[INFO] FORWARDS");
     }
     count += 1;
   } else {
@@ -408,7 +408,7 @@ void iterate()
       backing = true;
       count = 0;
       back();
-      Serial.println("[INFO] BACKING");
+      //Serial.println("[INFO] BACKING");
     }
     count += 1;
   }
@@ -435,7 +435,7 @@ int get_num()
   get_command();
   for (int i = 0; command != ';'; i++) {
     if (command < '0' || command > '9') {
-      Serial.println("[ERROR] Not a number");
+      //Serial.println("[ERROR] Not a number");
       return -1;
     }
     num = num * 10 + (command - '0');
@@ -448,7 +448,7 @@ bool obstacle()
 {
   bool rand = random(10000) < count;
   if (rand) {
-    Serial.print("[INFO] RANDOM_OBSTACLE");
+    //Serial.print("[INFO] RANDOM_OBSTACLE");
   }
   bool obs = stuck() || rand;
   return obs;
@@ -474,7 +474,7 @@ bool stuck()
     sonar[i] = sonar_new[i];
   }
   if (c >= 3) {
-    Serial.println("[INFO] STUCK");
+    //Serial.println("[INFO] STUCK");
   }
   return c >= 3;
 }
@@ -491,10 +491,10 @@ long read_sonar(int trigPin, int echoPin)
   duration = pulseIn(echoPin, HIGH, 20000);
   distance = duration / 58.2; // = (duration / 2) / 29.1
 
-  Serial.print("[SENSOR] SONAR ");
-  Serial.print(trigPin);
-  Serial.print(" ");
-  Serial.println(distance);
+  //Serial.print("[SENSOR] SONAR ");
+  //Serial.print(trigPin);
+  //Serial.print(" ");
+  //Serial.println(distance);
 
   delayMicroseconds(60); //Minimum 60ms
   return distance;

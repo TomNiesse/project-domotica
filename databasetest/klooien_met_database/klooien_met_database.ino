@@ -3,7 +3,7 @@
 //SSID of your network
 char ssid[] = "Wee-Fee"; //SSID of your Wi-Fi router
 char pass[] = "test3737"; //Password of your Wi-Fi router (12345678)
-byte pi[] = { 192, 168, 1, 100};
+byte pi[] = { 192, 168, 1, 103};
 
 bool last_start;
 bool last_stop;
