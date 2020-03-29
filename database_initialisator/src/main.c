@@ -100,8 +100,9 @@ int main(int argc, char **argv)
 	if (mysql_query(con,"CREATE TABLE DEVICE(DEVICE_ID INT AUTO_INCREMENT, " 
 				"DEVICE_NAME VARCHAR(255) NOT NULL, "
 				"DEVICE_TYPE VARCHAR(255) DEFAULT 0, "
-				"DEVICE_CUR_VALUE INT NULL, "
-				"DEVICE_DIS_VALUE INT DEFAULT 0, primary key(DEVICE_ID))"))
+				"DEVICE_CUR_VALUE FLOAT(11,2) NULL, "
+				"DEVICE_DIS_VALUE INT NULL, primary key(DEVICE_ID), "
+				"DEVICE_STATE INT NULL)"))
 	{
 		printf("%s", mysql_error(con));
 		mysql_close(con);
@@ -111,9 +112,10 @@ int main(int argc, char **argv)
 	printf("Table DEVICE is nu aangemaakt met de querie statements\n");
 
 	if (mysql_query(con,"CREATE TABLE TIME(TIME_ID INT AUTO_INCREMENT, " 
-				"TIME_TRIGGER_TIME TIME NOT NULL, "
-				"TIME_DATETIME DATETIME DEFAULT NULL, "
-				"TIME_DAY_OF_WEEK INT NOT NULL, primary key(TIME_ID))"))
+				"TIME_START_TIME TIME NOT NULL, "
+				"TIME_STOP_TIME TIME NOT NULL, "
+				"TIME_DAY_OF_WEEK INT NOT NULL, DEVICE_ID INT NOT NULL, primary key(TIME_ID),"
+				"FOREIGN KEY (DEVICE_ID) REFERENCES DEVICE(DEVICE_ID))"))
 	{
 		printf("%s", mysql_error(con));
 		mysql_close(con);

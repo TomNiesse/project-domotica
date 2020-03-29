@@ -33,7 +33,7 @@ int airco_get_current_value() {
 
 	/* We verwachten maar een waarde terug, en dus ook een enkele kolom */
 	row = mysql_fetch_row(result);
-	current_value = atoi(row[0]);
+	current_value = (int)atoi(row[0]);
 	mysql_close(sql_connection);
 	return current_value;
 }

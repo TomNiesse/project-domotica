@@ -1,28 +1,71 @@
-<!DOCTYPE html>
 <html>
-  <head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>
-			Dashboard
-		</title>
-		<style>
-			#print_css_file_contents()
-		</style>
-	</head>
-  <body>
-    <h1>Robotstofzuiger</h1><br>
-    <form action="" method="GET">
-      <label for="fname">maandag</label><br><label for="fname">Van </label><input type="text" id="fname" name="fname" value="" class ="bg-gray-400"><label for="lname"> tot </label><input type="text" id="lname" name="lname" value="" class ="bg-gray-400"><br><br>
-      <label for="fname">dinsdag</label><br><label for="fname">Van </label><input type="text" id="fname" name="fname" value="" class ="bg-gray-400"><label for="lname"> tot </label><input type="text" id="lname" name="lname" value="" class ="bg-gray-400"><br><br>
-      <label for="fname">woendsdag</label><br><label for="fname">Van </label><input type="text" id="fname" name="fname" value="" class ="bg-gray-400"><label for="lname"> tot </label><input type="text" id="lname" name="lname" value="" class ="bg-gray-400"><br><br>
-      <label for="fname">donderdag</label><br><label for="fname">Van </label><input type="text" id="fname" name="fname" value="" class ="bg-gray-400"><label for="lname"> tot </label><input type="text" id="lname" name="lname" value="" class ="bg-gray-400"><br><br>
-      <label for="fname">vrijdag</label><br><label for="fname">Van </label><input type="text" id="fname" name="fname" value="" class ="bg-gray-400"><label for="lname"> tot </label><input type="text" id="lname" name="lname" value="" class ="bg-gray-400"><br><br>
-      <label for="fname">zaterdag</label><br><label for="fname">Van </label><input type="text" id="fname" name="fname" value="" class ="bg-gray-400"><label for="lname"> tot </label><input type="text" id="lname" name="lname" value="" class ="bg-gray-400"><br><br>
-      <label for="fname">zondag</label><br><label for="fname">Van </label><input type="text" id="fname" name="fname" value="" class ="bg-gray-400"><label for="lname"> tot </label><input type="text" id="lname" name="lname" value="" class ="bg-gray-400"><br><br>
 
-      <input type="submit" value="Submit">
-    </form> 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    Dashboard
+  </title>
+  <style>
+    #print_css_file_contents()
+  </style>
+</head>
+<h1>Robotstofzuiger</h1>
+<H3> Laatst gemeten accuspanning: #robotstofzuiger_get_voltage()V</H3>
+<p>&nbsp;</p>
+<table style="height: 43px; width: 1400px;">
+  <tbody>
+    <tr>
+      <td class="bg-blue-300" style="width: 200px;">
+        <form action="" method="GET"><label>maandag</label><br><br><label>Van </label><input class="bg-gray-400"
+            name="maandag1" size="1" type="text" value="#robotstofzuiger_get_time(1, 0)" /><label> tot </label><input
+            class="bg-gray-400" name="maandag0" size="1" type="text"
+            value="#robotstofzuiger_get_time(0, 0)" /><br><br><input type="submit" value="Opslaan" /></form>
+      </td>
+      <td class="bg-blue-300" style="width: 200px;">
+        <form action="" method="GET"><label>dinsdag</label><br><br><label>Van </label><input class="bg-gray-400"
+            name="dinsdag1" size="1" type="text" value="#robotstofzuiger_get_time(1, 1)" /><label> tot </label><input
+            class="bg-gray-400" name="dinsdag0" size="1" type="text"
+            value="#robotstofzuiger_get_time(0, 1)" /><br><br><input type="submit" value="Opslaan" /></form>
+      </td>
+      <td class="bg-blue-300" style="width: 200px;">
+        <form action="" method="GET"><label>woendsdag</label><br><br><label>Van </label><input class="bg-gray-400"
+            name="woensdag1" size="1" type="text" value="#robotstofzuiger_get_time(1, 2)" /><label> tot </label><input
+            class="bg-gray-400" name="woensdag0" size="1" type="text"
+            value="#robotstofzuiger_get_time(0, 2)" /><br><br><input type="submit" value="Opslaan" /></form>
+      </td>
+      <td class="bg-blue-300" style="width: 200px;">
+        <form action="" method="GET"><label>donderdag</label><br><br><label>Van </label><input class="bg-gray-400"
+            name="donderdag1" size="1" type="text" value="#robotstofzuiger_get_time(1, 3)" /><label> tot </label><input
+            class="bg-gray-400" name="donderdag0" size="1" type="text"
+            value="#robotstofzuiger_get_time(0, 3)" /><br><br><input type="submit" value="Opslaan" /></form>
+      </td>
+      <td class="bg-blue-300" style="width: 200px;">
+        <form action="" method="GET"><label>vrijdag</label><br><br><label>Van </label><input class="bg-gray-400"
+            name="vrijdag1" size="1" type="text" value="#robotstofzuiger_get_time(1, 4)" /><label> tot </label><input
+            class="bg-gray-400" name="vrijdag0" size="1" type="text"
+            value="#robotstofzuiger_get_time(0, 4)" /><br><br><input type="submit" value="Opslaan" /></form>
+      </td>
+      <td class="bg-blue-300" style="width: 200px;">
+        <form action="" method="GET"><label>zaterdag</label><br><br><label>Van </label><input class="bg-gray-400"
+            name="zaterdag1" size="1" type="text" value="#robotstofzuiger_get_time(1, 5)" /><label> tot </label><input
+            class="bg-gray-400" name="zaterdag0" size="1" type="text"
+            value="#robotstofzuiger_get_time(0, 5)" /><br><br><input type="submit" value="Opslaan" /></form>
+      </td>
+      <td class="bg-blue-300" style="width: 200px;">
+        <form action="" method="GET"><label>zondag</label><br><br><label>Van </label><input class="bg-gray-400"
+            name="zondag1" size="1" type="text" value="#robotstofzuiger_get_time(1, 6)" /><label> tot </label><input
+            class="bg-gray-400" name="zondag0" size="1" type="text"
+            value="#robotstofzuiger_get_time(0, 6)" /><br><br><input type="submit" value="Opslaan" /></form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<H3>Handmatige bediening:</H3>
+<form action="" method="GET">
+  <input type="radio" name="aan" onclick="javascript: submit()" value="1" #robotstofzuiger_get_state(aan)> Aan </form>
+<form action="" method="GET">
+  <input type="radio" name="uit" onclick="javascript: submit()" value="0" #robotstofzuiger_get_state(uit)> Uit </form>
+</body>
 
-  </body>
 </html>
