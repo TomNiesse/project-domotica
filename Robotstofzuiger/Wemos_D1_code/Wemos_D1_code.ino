@@ -3,9 +3,16 @@
 //SSID of your network
 char ssid[] = "Wee-Fee"; //SSID of your Wi-Fi router
 char pass[] = "test3737"; //Password of your Wi-Fi router (12345678)
-byte pi[] = { 192, 168, 1, 100};
+byte pi[] = { 192, 168, 1, 103};
+
+bool last_start;
+bool last_stop;
 
 char string[20];
+char nano_response[10];
+float voltage;
+
+int i;
 
 WiFiClient client;
 
@@ -28,34 +35,56 @@ void setup() {
   }
   //Serial.println("");
   //Serial.println("Wi-Fi connected successfully");
-  pinMode(LED_BUILTIN, OUTPUT);
 
-  if (client.connect(pi, 1337))
-  {
-    //Serial.println("EY, er is verbinding");
-    client.write("Er is verbinding");
-  }
-  else
-  {
-    //Serial.println("Ik kan geen verbinding maken met de server");
-  }
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if (client.available())
+
+  if (client.connect(pi, 1337))
   {
-    if (readpi("START"))
+    if (Serial.available())
     {
-      Serial.write('r');
-      client.write("Robotstofzuiger wordt gestart");
+      i = 0;
+      while (Serial.available())
+      {
+        nano_response[i] = Serial.read();
+        i++;
+      }
+      client.print(nano_response);
     }
-    else if (readpi("STOP"))
+    //Serial.println("EY, er is verbinding");
+    //client.write("Er is verbinding");
+    while(!client.available())
     {
-      Serial.write('p');
-      client.write("Robotstofzuiger wordt gestopt");
+      ;
+    }
+    while (client.available())
+    {
+      if (readpi("START"))
+      {
+        if (!last_start)
+        {
+          Serial.println('r');
+        }
+        last_start = true;
+        last_stop = false;
+        //client.write("Robotstofzuiger wordt gestart");
+      }
+      else if (readpi("STOP"))
+      {
+        if (!last_stop)
+        {
+          Serial.println('p');
+        }
+        last_stop = true;
+        last_start = false;
+        //client.write("Robotstofzuiger wordt gestopt");
+      }
     }
   }
+  delay(500);
+  client.stop();
 }
 
 int readpi(char* vergelijking)
@@ -77,3 +106,4 @@ int readpi(char* vergelijking)
   }
   return 0;
 }
+
