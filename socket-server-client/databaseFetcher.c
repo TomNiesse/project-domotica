@@ -13,7 +13,7 @@ int main()
 	char *server = "localhost";
 	char *user = "root";
 	char *password = "1234"; /*password is not set in this example*/
-	char *database = "DOMOTICA";
+	char *database = "domotica";
 
 	conn = mysql_init(NULL);
 
@@ -35,7 +35,7 @@ int main()
 	res = mysql_use_result(conn);
 
 	/* Output table name */
-	printf("MySQL Tables in DOMOTICA database:\n");
+	printf("MySQL Tables in domotica database:\n");
 	while ((row = mysql_fetch_row(res)) != NULL)
 		printf("%s \n", row[0]);
 

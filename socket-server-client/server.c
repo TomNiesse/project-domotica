@@ -7,6 +7,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <time.h>
+#include <mariadb/mysql.h>
 
 int main() {
 	/* Define vars */
