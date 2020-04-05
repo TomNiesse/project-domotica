@@ -20,6 +20,24 @@ void print_css_file_contents() {
 	fclose(css_file);
 }
 
+void print_css_file_robotstofzuiger() {
+	FILE *css_file;
+	char current_char;
+	long int file_size;
+	int file_index;
+	css_file = fopen("html_root/css/robotstofzuiger.css", "r");
+	/* Haal bestandsgrootte op */
+	fseek(css_file, 0, SEEK_END);
+	file_size = ftell(css_file);
+	fseek(css_file, 0, SEEK_SET);
+	/* Print alle chars uit het CSS-bestand uit */
+	for(file_index = 0; file_index < file_size; file_index++) {
+		current_char = (char) fgetc(css_file);
+		printf("%c", current_char);
+	}
+	fclose(css_file);
+}
+
 void execute_command(char* command) {
 	if(strcmp(command, "command_test()") == 0) {
 		command_test();
@@ -27,8 +45,10 @@ void execute_command(char* command) {
 	} else if(strcmp(command, "print_css_file_contents()") == 0) {
 		print_css_file_contents();
 		return;
+	}else if(strcmp(command, "print_css_file_robotstofzuiger()") == 0) {
+		print_css_file_robotstofzuiger();
+		return;
 	}
-	
 	/* Commands voor tijden van de robotstofzuiger uitlezen uit de database*/
 	else if(strcmp(command, "robotstofzuiger_get_time(1, 0)") == 0) 
 	{

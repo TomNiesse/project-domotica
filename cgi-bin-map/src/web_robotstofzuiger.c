@@ -8,7 +8,7 @@
  * Definieer een paar maximale waarden, voor het parsen van inkomende requests
  */
 #define MAX_ARRAY_LENGTH 256
-#define MAX_STRING_LENGTH 50
+#define MAX_STRING_LENGTH 300
 
 /* Definieer de sql-variabelen hier, zodat ze globaal bekend zijn.
  * De gebruiker heeft minimale rechten, dus schade zou beperkt moeten blijven indien er een hancker in komt */
