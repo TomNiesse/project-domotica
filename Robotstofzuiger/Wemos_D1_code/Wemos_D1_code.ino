@@ -36,6 +36,8 @@ void setup() {
   //Serial.println("");
   //Serial.println("Wi-Fi connected successfully");
 
+  delay(5000); //Wacht 5 seconden, omdat de robotstofzuiger daarna klaar is om signalen te ontvangen.
+
 }
 
 void loop() {
@@ -106,4 +108,3 @@ int readpi(char* vergelijking)
   }
   return 0;
 }
-

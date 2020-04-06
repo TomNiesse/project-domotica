@@ -70,7 +70,7 @@ const int led = 13;
 
 //Battery voltage display time
 long previousMillis = 0; // Will store last time LED was updated
-long interval = 10000;   // Interval at which to display the voltage (milliseconds)
+long interval = 1000;   // Interval at which to display the voltage (milliseconds)
 
 
 void(* resetFunc) (void) = 0;
