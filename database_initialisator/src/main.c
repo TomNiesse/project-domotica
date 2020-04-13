@@ -100,8 +100,8 @@ int main(int argc, char **argv)
 	if (mysql_query(con,"CREATE TABLE DEVICE(DEVICE_ID INT AUTO_INCREMENT, " 
 				"DEVICE_NAME VARCHAR(255) NOT NULL, "
 				"DEVICE_TYPE VARCHAR(255) DEFAULT 0, "
-				"DEVICE_CUR_VALUE FLOAT(11,2) NULL, "
-				"DEVICE_DIS_VALUE INT NULL, primary key(DEVICE_ID), "
+				"DEVICE_CURRENT_VALUE FLOAT(11,2) NULL, "
+				"DEVICE_DESIRED_VALUE INT NULL, primary key(DEVICE_ID), "
 				"DEVICE_STATE INT NULL)"))
 	{
 		printf("%s", mysql_error(con));
