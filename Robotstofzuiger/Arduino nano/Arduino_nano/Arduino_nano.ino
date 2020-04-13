@@ -7,8 +7,8 @@
 #define HG7881_LEFT_IA 7 // PWM
 #define HG7881_LEFT_IB 5 // Direction
 #define HG7881_LEFT_IB2 6 // Direction
-//Functional connections
 
+//Functional connections
 #define MOTOR_RIGHT_PWM HG7881_RIGHT_IA // Motor B PWM Speed
 #define MOTOR_RIGHT_DIR HG7881_RIGHT_IB // Motor B Direction
 #define MOTOR_RIGHT_DIR2 HG7881_RIGHT_IB2 // Motor B Direction
@@ -61,7 +61,7 @@
 //Battery Voltage input
 const int battery = A2;
 
-const float voltageBatCharged = 12.68; // Voltage measured when battery fully charged //Change this
+const float voltageBatCharged = 12.68; // Voltage van een volle accu
 
 boolean control = true;
 
@@ -69,9 +69,8 @@ boolean control = true;
 const int led = 13;
 
 //Battery voltage display time
-long previousMillis = 0; // Will store last time LED was updated
-long interval = 1000;   // Interval at which to display the voltage (milliseconds)
-
+long previousMillis = 0;
+long interval = 1000;
 
 void(* resetFunc) (void) = 0;
 
@@ -105,21 +104,15 @@ unsigned long get_time(int addry) {
 }
 
 void setup() {
+
   //Batty
   pinMode(battery, INPUT);
 
-  //Wait about 5 s and initialize fan if voltage ok
-  waitBlinking(5, 1); //5 seconds at 1 Hz
-  //Crank (initialize the fan because the voltage drops when cranking)
-  if (readBattery(battery) > 12.1) {
-    //Serial.print(battery);
-    delay(1); //For 1ms
-  }
-  else {
-    //Do nothing convention
-  }
+  //Wacht voor 3 seconden zodat alle verbindingen tot stand zijn gekomen.
+  waitBlinking(3, 1); //5 seconds at 1 Hz
 
-  Serial.begin(9600);  //Set the baud rate to your Bluetooth module.
+  Serial.begin(9600);  //Baud rate Wemos.
+  
   pinMode( MOTOR_RIGHT_DIR, OUTPUT );
   pinMode( MOTOR_RIGHT_DIR2, OUTPUT );
   pinMode( MOTOR_RIGHT_PWM, OUTPUT );
@@ -141,9 +134,11 @@ void setup() {
   //left
   pinMode(SONAR_1_TRIG, OUTPUT);
   pinMode(SONAR_1_ECHO, INPUT);
+
   //front
   pinMode(SONAR_2_TRIG, OUTPUT);
   pinMode(SONAR_2_ECHO, INPUT);
+
   //right
   pinMode(SONAR_3_TRIG, OUTPUT);
   pinMode(SONAR_3_ECHO, INPUT);
@@ -158,10 +153,7 @@ void setup() {
   if (get_cfg(CFG_TIME_COUNT) == 255) {
     set_cfg(CFG_TIME_COUNT, 0);
   }
-
   count = 0;
-
-  //Serial.println("[INFO] INIT");
 }
 
 void loop() {
@@ -184,52 +176,36 @@ void loop() {
       get_command();
 
       if (command == 'd') {
-        debug(); //Takes control
+        debug();
       } else if (command == 'r') {
         paused = false;
         init_run();
-        //Serial.println("[MANUAL] Running...");
       } else if (command == 'p') {
         paused = true;
         pause_run();
-        //Serial.println("[MANUAL] Pausing...");
       } else if (command == 'c') {
         int address = get_num();
         if (address >= 0) {
           int value = get_num();
           if (value >= 0) {
             set_cfg(address, (byte) value);
-            //Serial.print("[CFG] ");
-            //Serial.print(address);
-            //Serial.print(" ");
-            //Serial.println(get_cfg(address));
           }
         }
       } else if (command == 'g') {
         int address = get_num();
         if (address >= 0) {
-          //Serial.print("[CFG] ");
-          //Serial.print(address);
-          //Serial.print(" ");
-          //Serial.println(get_cfg(address));
         }
-      } else {
-        //Serial.println("[ERROR] Invalid command.");
-      }
+      } 
     }
     if (!paused) {
       iterate();
     }
   }
   else if (!control) {
-    //If the battery is low, turn everything off
-    digitalWrite(FAN, LOW); //Turn the Fan OFF
+    digitalWrite(FAN, LOW);
     Stop();
-    //Serial.print(" Low Battery! ");
-    //Serial.println();
-    waitBlinking(1, 3); //blink as warning 3hz in a loop
+    waitBlinking(1, 3);
   }
-  //Serial.println();
 }
 
 void waitBlinking(int n, int frequency) {
@@ -249,19 +225,14 @@ float readBattery(int input) {
   float voltage;
   readInput = analogRead(input);
   voltage = (((readInput * 4.9) / 1000) * voltageBatCharged ) / 5; //Resolution of analog input = 4.9mV per Voltage
-  //Serial.print("Battery= ");
   Serial.println(voltage);
   return voltage;
 }
 void batteryControl(int input) {
-  //Turn everything off in case the battery is low
   float v_battery;
   v_battery = readBattery(input);
-  if (v_battery <= 10.5) { //Battery limit of discharge, Don't put this limit lower than  11.1V or you can kill the battery
+  if (v_battery <= 10.5) { //Stop alles als de accuspanning onder 10.5v komt
     control = false;
-  }
-  else {
-    //Do nothing Convention
   }
 }
 
@@ -279,14 +250,12 @@ void timings() {
         autorun = true;
         paused = false;
         init_run();
-        //Serial.println("[AUTO] Running...");
       }
     }
   } else if (autorun && time_day > stop_time) {
     autorun = false;
     paused = true;
     pause_run();
-    //Serial.println("[AUTO] Pausing...");
   }
 }
 
@@ -297,32 +266,22 @@ void debug() {
     get_command();
     if (command == 'm') {
       get_command();
-      Stop(); //Initialize with motors stoped
+      Stop();
       if (command == 'f') {
         forward();
-        //Serial.println("[MANUAL] Forwards...");
       } else if (command == 'b') {
         back();
-        //Serial.println("[MANUAL] Backwards...");
       } else if (command == 'l') {
         left();
-        //Serial.println("[MANUAL] Left...");
       } else if (command == 'r') {
         right();
-        //Serial.println("[MANUAL] Right...");
-      } else if (command == 's') {
-        //Serial.println("[MANUAL] Stopped moving.");
-      } else {
-        //Serial.println("[ERROR] Invalid direction. Stopped moving.");
       }
     } else if (command == 'f') {
       get_command();
       if (command == '0') {
         digitalWrite(FAN, LOW);
-        //Serial.println("[MANUAL] Fan turned off.");
       } else {
         digitalWrite(FAN, HIGH);
-        //Serial.println("[MANUAL] Fan turned on.");
       }
     } else if (command == 'c') {
       get_command();
@@ -334,28 +293,17 @@ void debug() {
           read_sonar(SONAR_2_TRIG, SONAR_2_ECHO);
         } else if (command == '3') {
           read_sonar(SONAR_3_TRIG, SONAR_3_ECHO);
-        } else {
-          //Serial.println("[ERROR] Invalid sonar id");
-        }
-      } else {
-        //Serial.println("[ERROR] Invalid sensor type");
-      }
+        } 
+      } 
     } else if (command == 'r') {
-      //Serial.println("[MANUAL] Resetting...");
       resetFunc();
-    } else {
-      //Serial.println("[ERROR] Invalid debug command");
-    }
+    } 
   }
   else if (!control) {
-    //If the battery is low, turn everything off
-    digitalWrite(FAN, LOW); //Turn the Fan OFF
+    digitalWrite(FAN, LOW);
     Stop();
-    //Serial.print(" Low Battery! ");
-    //Serial.println();
     waitBlinking(1, 3); //Blink as warning 3hz in a loop
   }
-  //Serial.println();
 }
 
 void pause_run()
@@ -400,7 +348,6 @@ void iterate()
       backing = false;
       count = 0;
       forward();
-      //Serial.println("[INFO] FORWARDS");
     }
     count += 1;
   } else {
@@ -408,7 +355,6 @@ void iterate()
       backing = true;
       count = 0;
       back();
-      //Serial.println("[INFO] BACKING");
     }
     count += 1;
   }
@@ -426,7 +372,6 @@ void get_command()
 {
   wait_for_serial();
   command = Serial.read();
-  // Serial.print(command);
 }
 
 int get_num()
@@ -435,7 +380,6 @@ int get_num()
   get_command();
   for (int i = 0; command != ';'; i++) {
     if (command < '0' || command > '9') {
-      //Serial.println("[ERROR] Not a number");
       return -1;
     }
     num = num * 10 + (command - '0');
@@ -447,9 +391,6 @@ int get_num()
 bool obstacle()
 {
   bool rand = random(10000) < count;
-  if (rand) {
-    //Serial.print("[INFO] RANDOM_OBSTACLE");
-  }
   bool obs = stuck() || rand;
   return obs;
 }
@@ -473,9 +414,6 @@ bool stuck()
       c += 1;
     sonar[i] = sonar_new[i];
   }
-  if (c >= 3) {
-    //Serial.println("[INFO] STUCK");
-  }
   return c >= 3;
 }
 
@@ -490,11 +428,6 @@ long read_sonar(int trigPin, int echoPin)
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH, 20000);
   distance = duration / 58.2; // = (duration / 2) / 29.1
-
-  //Serial.print("[SENSOR] SONAR ");
-  //Serial.print(trigPin);
-  //Serial.print(" ");
-  //Serial.println(distance);
 
   delayMicroseconds(60); //Minimum 60ms
   return distance;
