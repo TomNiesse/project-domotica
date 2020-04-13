@@ -76,30 +76,10 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	/* Je hoeft niets te droppen als de database net nieuw is, dus dit commenten we even */
-	/*if (mysql_query(con, "DROP TABLE IF EXISTS USER")){
-	  mysql_close(con);
-	  exit(1);
-	  }
-	  printf("Table USER wordt gedropt\n");*/
-
-	if (mysql_query(con,"CREATE TABLE USER(USER_ID INT AUTO_INCREMENT, "
-				"USER_PWD VARCHAR(255) NOT NULL, "
-				"USER_IS_ADMIN BOOL DEFAULT 0, "
-				"USER_LOGIN_TIME TIME NULL, "
-				"USER_LOGOUT_TIME TIME DEFAULT 0, primary key(USER_ID))"))
-	{
-		printf("%s", mysql_error(con));
-		mysql_close(con);
-		exit(1);
-	}
-
-
-	printf("Table USER is nu aangemaakt met de querie statements\n");
+	/* Tabellen aanmaken */
 
 	if (mysql_query(con,"CREATE TABLE DEVICE(DEVICE_ID INT AUTO_INCREMENT, " 
 				"DEVICE_NAME VARCHAR(255) NOT NULL, "
-				"DEVICE_TYPE VARCHAR(255) DEFAULT 0, "
 				"DEVICE_CURRENT_VALUE FLOAT(11,2) NULL, "
 				"DEVICE_DESIRED_VALUE INT NULL, primary key(DEVICE_ID), "
 				"DEVICE_STATE INT NULL)"))
@@ -109,7 +89,7 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	printf("Table DEVICE is nu aangemaakt met de querie statements\n");
+	printf("De DEVICE tabel is nu aangemaakt met de querie statements\n");
 
 	if (mysql_query(con,"CREATE TABLE TIME(TIME_ID INT AUTO_INCREMENT, " 
 				"TIME_START_TIME TIME NOT NULL, "
@@ -121,7 +101,40 @@ int main(int argc, char **argv)
 		mysql_close(con);
 		exit(1);
 	}
-	printf("Table TIME is nu aangemaakt met de querie statements\n");
+	printf("De TIME tabel is nu aangemaakt met de querie statements\n");
+
+
+	/* Tabellen vullen*/
+
+	if (mysql_query(con,"INSERT INTO DEVICE(DEVICE_ID, DEVICE_NAME, DEVICE_CURRENT_VALUE, DEVICE_DESIRED_VALUE, DEVICE_STATE)"
+						"VALUES" 
+						"(1, 'Robotstofzuiger', 0, NULL, 0),"
+						"(4, 'Airco', -1, 19, NULL)"))
+	{
+		printf("%s", mysql_error(con));
+		mysql_close(con);
+		exit(1);
+	}
+	printf("De DEVICE tabel is nu gevuld met waarden\n");
+
+
+	if (mysql_query(con,"INSERT INTO TIME(TIME_ID, TIME_START_TIME, TIME_STOP_TIME, TIME_DAY_OF_WEEK, DEVICE_ID)"
+						"VALUES" 
+						"(1, '00:00', '00:00', 0, 1),"
+						"(2, '00:00', '00:00', 1, 1),"
+						"(3, '00:00', '00:00', 2, 1),"
+						"(4, '00:00', '00:00', 3, 1),"
+						"(5, '00:00', '00:00', 4, 1),"
+						"(6, '00:00', '00:00', 5, 1),"
+						"(7, '00:00', '00:00', 6, 1)"))
+	{
+		printf("%s", mysql_error(con));
+		mysql_close(con);
+		exit(1);
+	}
+	printf("De TIME tabel is nu gevuld met waarden\n");
+
+
 
 	/*
 	 * Maak een gebruiker aan met minimale rechten, voor de veiligheid
