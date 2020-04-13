@@ -18,9 +18,7 @@
 #define MYSQL_PASSWORD   "domotica"
 #define MAX_QUERY_LENGTH 512
 
-#define DEVICE_ID_AIRCO 2     			/* Dit moet nog worden veranderd in het eindproduct. Daar moet het id nummer 3 zijn, de laatste van de 4 apparaten */
-#define DEVICE_ID_ROBOTSTOFZUIGER 1
-#include "devices/robotstofzuiger.c"
+#define DEVICE_ID_AIRCO 3     			/* Dit moet nog worden veranderd in het eindproduct. Daar moet het id nummer 3 zijn, de laatste van de 4 apparaten */
 #include "devices/airco.c"    			/* airco.c kan met de database praten om waarden op te halen en bij te werken */
 
 #include "commands.c"
@@ -49,8 +47,6 @@ int main(int argc, char** argv, char** env) {
 	 * Render webpage
 	 */
 	airco_parse_new_desired_value_input(params, values);
-	robotstofzuiger_parse_time(params, values);
-	robotstofzuiger_update_state(params, values);
 	printf("Content-type: text/html\r\n\n");
 	print_html_page_contents("html_root/airco.html");
 	return 0;
