@@ -21,7 +21,7 @@ float robotstofzuiger_get_voltage()
 	}
 
 	/* Haal de waarde op van de robotstofzuiger */
-	sprintf(sql_query, "SELECT DEVICE_CUR_VALUE FROM DEVICE WHERE DEVICE_ID = %d", DEVICE_ID_ROBOTSTOFZUIGER);
+	sprintf(sql_query, "SELECT DEVICE_CURRENT_VALUE FROM DEVICE WHERE DEVICE_ID = %d", DEVICE_ID_ROBOTSTOFZUIGER);
 	if (mysql_query(sql_connection, sql_query)) 
 	{
 		return -1;

@@ -109,6 +109,7 @@ int main(int argc, char **argv)
 	if (mysql_query(con,"INSERT INTO DEVICE(DEVICE_ID, DEVICE_NAME, DEVICE_CURRENT_VALUE, DEVICE_DESIRED_VALUE, DEVICE_STATE)"
 						"VALUES" 
 						"(1, 'Robotstofzuiger', 0, NULL, 0),"
+						"(3, 'Nachtlamp', 0, 1, 0),"
 						"(4, 'Airco', -1, 19, NULL)"))
 	{
 		printf("%s", mysql_error(con));
