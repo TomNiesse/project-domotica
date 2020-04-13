@@ -136,7 +136,7 @@ int robotstofzuiger_set_voltage(float voltage)
     }
 
 	/* Zet de nieuwe waarde in de database */
-	sprintf(sql_query, "UPDATE DEVICE SET DEVICE_CUR_VALUE = %.2f WHERE DEVICE_ID = %d", voltage, DEVICE_ID_ROBOTSTOFZUIGER);
+	sprintf(sql_query, "UPDATE DEVICE SET DEVICE_CURRENT_VALUE = %.2f WHERE DEVICE_ID = %d", voltage, DEVICE_ID_ROBOTSTOFZUIGER);
 	if(mysql_query(sql_connection, sql_query))
 	{
 		mysql_close(sql_connection);
