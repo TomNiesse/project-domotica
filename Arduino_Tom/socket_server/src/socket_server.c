@@ -123,7 +123,7 @@ int airco_get_desired_value() {
 	}
 
 	/* Haal de waarde op van de airco */
-	sprintf(sql_query, "SELECT DEVICE_DIS_VALUE FROM DEVICE WHERE DEVICE_ID = %d", DEVICE_ID_AIRCO);
+	sprintf(sql_query, "SELECT DEVICE_DESIRED_VALUE FROM DEVICE WHERE DEVICE_ID = %d", DEVICE_ID_AIRCO);
 	if (mysql_query(sql_connection, sql_query)) {
 		return -1;
 	}
@@ -156,7 +156,7 @@ int airco_set_current_value(int new_current_value) {
         }
 
 	/* Zet de nieuwe waarde in de database */
-	sprintf(sql_query, "UPDATE DEVICE SET DEVICE_CUR_VALUE = %d WHERE DEVICE_ID = %d", new_current_value, DEVICE_ID_AIRCO);
+	sprintf(sql_query, "UPDATE DEVICE SET DEVICE_CURRENT_VALUE = %d WHERE DEVICE_ID = %d", new_current_value, DEVICE_ID_AIRCO);
 	if(mysql_query(sql_connection, sql_query))
 	{
 		mysql_close(sql_connection);
