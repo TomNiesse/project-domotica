@@ -244,7 +244,7 @@ void writeArduino(char* bericht, char* response_buffer, int newsockfd)
 	message_size = write(newsockfd, response_buffer, strlen(response_buffer)+1);
 	if (message_size < 0) 
 	{
-		printf("write() is spontaan dyslect geworden\n");
+		printf("write() ging niet goed!\n");
 		exit(1);
 	} 
 	else 
